@@ -12,7 +12,6 @@ interface CurrentWeatherCardProps {
 export default function CurrentWeatherCard({
   location,
   temperature,
-  condition,
   description,
   icon,
   feelsLike,

@@ -12,7 +12,7 @@ import {
   ForecastItem,
   HourlyItem,
   HighlightItem,
-  LocationInfo
+  LocationInfo,
 } from '@/types/weather'
 
 const CurrentWeatherCard = dynamic(
@@ -38,7 +38,9 @@ const Home = () => {
   const [query, setQuery] = useState('')
   const [location, setLocation] = useState<LocationInfo | null>(null)
   const [suggestions, setSuggestions] = useState<LocationInfo[]>([])
-  const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(null)
+  const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(
+    null,
+  )
   const [forecast, setForecast] = useState<ForecastItem[]>([])
   const [hourlyData, setHourlyData] = useState<HourlyItem[]>([])
   const [highlights, setHighlights] = useState<HighlightItem[]>([])
@@ -53,7 +55,7 @@ const Home = () => {
           name: 'New York',
           latitude: 40.7128,
           longitude: -74.006,
-          country: 'United States'
+          country: 'United States',
         }
         setLocation(defaultLocation)
         return
@@ -61,7 +63,7 @@ const Home = () => {
 
       setLoading(true)
       setError(null)
-      
+
       try {
         const weatherData = await weatherService.fetchWeatherData(location)
         setCurrentWeather(weatherData.current)
@@ -75,14 +77,14 @@ const Home = () => {
         setLoading(false)
       }
     }
-    
+
     fetchWeatherData()
   }, [location])
 
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setQuery(value)
-    
+
     if (value.length > 2) {
       try {
         const results = await weatherService.searchLocations(value)
@@ -153,7 +155,10 @@ const Home = () => {
                             </span>
                             {suggestion.country && (
                               <span className='text-xs text-gray-500'>
-                                {suggestion.admin1 ? `${suggestion.admin1}, ` : ''}{suggestion.country}
+                                {suggestion.admin1
+                                  ? `${suggestion.admin1}, `
+                                  : ''}
+                                {suggestion.country}
                               </span>
                             )}
                           </div>
@@ -175,7 +180,7 @@ const Home = () => {
             {error}
           </div>
         )}
-        
+
         <div className='flex flex-col gap-3'>
           {/* Current Weather*/}
           <div className='flex flex-col lg:flex-row gap-3'>
