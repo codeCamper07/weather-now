@@ -118,7 +118,7 @@ export class WeatherService {
 
       const data = await response.json()
 
-      return (data.results || []).map((result: any) => ({
+      return (data.results || []).map((result: LocationInfo) => ({
         id: result.id,
         name: result.name,
         latitude: result.latitude,
@@ -156,7 +156,6 @@ export class WeatherService {
 
   private transformForecast(data: OpenMeteoResponse): ForecastItem[] {
     const daily = data.daily
-    const today = new Date()
 
     return daily.time.slice(0, 7).map((dateString, index) => {
       const date = new Date(dateString)
